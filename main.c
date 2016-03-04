@@ -72,11 +72,13 @@ task autonomous()
 // You must modify the code to add your own robot specific commands here.
 //
 /////////////////////////////////////////////////////////////////////////////////////////
+int startingTime = nSysTime + 2000;
 
 task usercontrol() {
+	writeDebugStreamLine("Time, Power, Target");
 	PIDInit(flywheel,
 		// PID variables (Kp, Ki, Kd)
-		1, 1, 1,
+		1.6, 0, 0,
 		// IMEMotor
 		FlywheelLeft,
 		// Motor Gearings
@@ -85,17 +87,20 @@ task usercontrol() {
 
 
 	while (true) {
+
 		PIDUpdate(&flywheel);
 
-		flywheel.target = motorPowerToRPM(80);
+		flywheel.target = 150;
 
 
-	  writeDebugStreamLine("A: %d", flywheel.drive)
+	  writeDebugStreamLine("%d, %d, %d", nSysTime - startingTime, flywheel.currentVelocity, flywheel.target);
 
 	  motor[FlywheelLeft] = flywheel.drive;
 	  motor[FlywheelRight] = flywheel.drive;
 
-	  motor[ElevatorElevator] = 80;
-	  motor[ElevatorIntake] = 80;
+	  //motor[ElevatorElevator] = 80;
+	  //motor[ElevatorIntake] = 80;
+
+	  wait1Msec(40);
 	}
 }

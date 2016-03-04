@@ -80,7 +80,7 @@ void PIDUpdateVelocity(PIDControlled *system) {
 
   // Update actual velocity
   if (system->deltaTime != 0) {
-  	system->currentVelocity = (1000.0 / system->deltaTime) * system->deltaCount * (60 / system->ticksPerRev)
+  	system->currentVelocity = (1000.0 / system->deltaTime) * system->deltaCount * (60 / system->ticksPerRev);
 	}
 }
 
@@ -130,5 +130,5 @@ void PIDUpdate(PIDControlled *system) {
     system->drive = 0;
   }
   // Update last error
-  system->lastError = system->error
+  system->lastError = system->error;
 }
